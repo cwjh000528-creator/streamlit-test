@@ -31,22 +31,16 @@ h1, h2, h3, p, div, span {
 
 /* 棋盤格子 */
 .stButton > button {
-    background-color: #F3E5C8 !important;
+    background-color: #B39B8F !important;
     color: #3E2723 !important;
 
     width: 48px !important;
     height: 48px !important;
-    min-width: 48px !important;
-    min-height: 48px !important;
-
-    padding: 0px !important;
-    margin: 0px !important;
 
     border: 1px solid #8D6E63 !important;
     border-radius: 4px !important;
 
     font-size: 30px !important;
-    font-weight: bold !important;
 }
 
 div[data-testid="column"] {
@@ -76,6 +70,12 @@ button[kind="secondary"] {
 .white-piece {
     color: white;
     font-size: 24px;
+}
+
+button[kind="primary"] {
+    border: 3px solid #FFD700 !important;
+    background-color: #D7B899 !important;
+    box-shadow: 0 0 8px #FFD700 !important;
 }
 
 </style>
@@ -244,17 +244,23 @@ for r in range(BOARD_SIZE):
         elif v == 1:
             txt = "⬤"
         
-        elif (
-            st.session_state.last_ai_move
-            and
-            (r, c) == st.session_state.last_ai_move
-        ):
-            txt = "🔴"
-        
         else:
             txt = "◯"
 
-        if cols[c].button(txt,key=f"{r}_{c}",disabled=(st.session_state.winner is not None)):
+        highlight = (
+            st.session_state.last_ai_move is not None
+            and
+            (r, c) == st.session_state.last_ai_move
+        )
+        
+        btn_type = "primary" if highlight else "secondary"
+        
+        if cols[c].button(
+            txt,
+            key=f"{r}_{c}",
+            type=btn_type,
+            disabled=(st.session_state.winner is not None)
+        ):
             if board[r,c]==0 and st.session_state.turn==1:
                 board[r,c]=1
 
