@@ -190,9 +190,4 @@ for r in range(BOARD_SIZE):
                         save_score(st.session_state.score)
                         st.session_state.winner = "🤖 AI獲勝"
 
-                if check_win(board,ar,ac,2):
-                    st.session_state.score["ai"]+=1
-                    save_score(st.session_state.score)
-                    st.session_state.winner="🤖 AI獲勝"
-
                 st.rerun()
