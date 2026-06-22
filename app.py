@@ -105,5 +105,4 @@ for r in range(BOARD_SIZE):
                     )
 
                 st.rerun()
-```
 
