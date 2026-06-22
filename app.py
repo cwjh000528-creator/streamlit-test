@@ -54,12 +54,6 @@ div[data-testid="column"] {
     border-color: #5D4037 !important;
 }
 
-/* 功能按鈕 */
-button[kind="secondary"] {
-    background-color: #A1887F !important;
-    color: white !important;
-}
-
 /* 黑棋 */
 .black-piece {
     color: black;
@@ -72,6 +66,20 @@ button[kind="secondary"] {
     font-size: 24px;
 }
 
+button[kind="primary"] {
+    border: 3px solid #FFD700 !important;
+    background-color: #D7B899 !important;
+    box-shadow: 0 0 8px #FFD700 !important;
+}
+
+/* 功能按鈕 */
+div[data-testid="stHorizontalBlock"] button {
+    min-width: 120px !important;
+    height: 55px !important;
+    font-size: 22px !important;
+}
+
+/* AI最後一步 */
 button[kind="primary"] {
     border: 3px solid #FFD700 !important;
     background-color: #D7B899 !important;
