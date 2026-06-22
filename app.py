@@ -33,9 +33,24 @@ h1, h2, h3, p, div, span {
 .stButton > button {
     background-color: #F3E5C8 !important;
     color: #3E2723 !important;
+
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+
+    padding: 0px !important;
+    margin: 0px !important;
+
     border: 1px solid #8D6E63 !important;
     border-radius: 4px !important;
-    min-height: 42px !important;
+
+    font-size: 20px !important;
+}
+
+div[data-testid="column"] {
+    padding-left: 1px !important;
+    padding-right: 1px !important;
 }
 
 /* 滑鼠移過 */
@@ -218,9 +233,12 @@ for r in range(BOARD_SIZE):
     cols=st.columns(BOARD_SIZE)
     for c in range(BOARD_SIZE):
         v=board[r,c]
-        txt="·"
-        if v==1: txt="⚫"
-        elif v==2: txt="⚪"
+        if v == 0:
+            txt = "＋"
+        elif v == 1:
+            txt = "●"
+        else:
+            txt = "○"
 
         if cols[c].button(txt,key=f"{r}_{c}",disabled=(st.session_state.winner is not None)):
             if board[r,c]==0 and st.session_state.turn==1:
