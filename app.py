@@ -22,8 +22,15 @@ def save_score(score):
     with open(SCORE_FILE,"w",encoding="utf-8") as f:
         json.dump(score,f)
 
-if "board" not in st.session_state:
-    st.session_state.board = np.zeros((BOARD_SIZE, BOARD_SIZE), dtype=int)
+if (
+    "board" not in st.session_state
+    or not isinstance(st.session_state.board, np.ndarray)
+    or st.session_state.board.shape != (BOARD_SIZE, BOARD_SIZE)
+):
+    st.session_state.board = np.zeros(
+        (BOARD_SIZE, BOARD_SIZE),
+        dtype=int
+    )
 
 if "turn" not in st.session_state:
     st.session_state.turn = 1
@@ -35,7 +42,11 @@ if "score" not in st.session_state:
     st.session_state.score = load_score()
 
 def reset_board():
-    st.session_state.board = np.zeros((BOARD_SIZE, BOARD_SIZE), dtype=int)
+    st.session_state.board = np.zeros(
+        (BOARD_SIZE, BOARD_SIZE),
+        dtype=int
+    )
+
     st.session_state.turn = 1
     st.session_state.winner = None
 
@@ -98,6 +109,8 @@ def ai_move():
 
 st.title("🎮 五子棋 AI 挑戰版")
 
+st.caption("玩家：⚫　AI：⚪")
+
 c1,c2,c3,c4=st.columns(4)
 with c1:
     st.metric("玩家", st.session_state.score["player"])
@@ -111,15 +124,39 @@ with c3:
 
 with c4:
     if st.button("全部重置"):
-        st.session_state.score={"player":0,"ai":0}
+    
+        st.session_state.clear()
+    
+        st.session_state.board = np.zeros(
+            (BOARD_SIZE, BOARD_SIZE),
+            dtype=int
+        )
+    
+        st.session_state.turn = 1
+        st.session_state.winner = None
+    
+        st.session_state.score = {
+            "player": 0,
+            "ai": 0
+        }
+    
         save_score(st.session_state.score)
-        reset_board()
+    
         st.rerun()
 
 if st.session_state.winner:
     st.success(st.session_state.winner)
 
-board=st.session_state.board
+board = st.session_state.board
+
+if board.shape != (BOARD_SIZE, BOARD_SIZE):
+    st.session_state.board = np.zeros(
+        (BOARD_SIZE, BOARD_SIZE),
+        dtype=int
+    )
+    st.rerun()
+
+board = st.session_state.board
 
 for r in range(BOARD_SIZE):
     cols=st.columns(BOARD_SIZE)
@@ -142,8 +179,16 @@ for r in range(BOARD_SIZE):
                 with st.spinner("🤖 AI思考中..."):
                     time.sleep(0.5)
 
-                ar,ac=ai_move()
-                board[ar,ac]=2
+                move = ai_move()
+                
+                if move is not None:
+                    ar, ac = move
+                    board[ar, ac] = 2
+                
+                    if check_win(board, ar, ac, 2):
+                        st.session_state.score["ai"] += 1
+                        save_score(st.session_state.score)
+                        st.session_state.winner = "🤖 AI獲勝"
 
                 if check_win(board,ar,ac,2):
                     st.session_state.score["ai"]+=1
