@@ -9,6 +9,62 @@ SCORE_FILE = "score.json"
 
 st.set_page_config(page_title="五子棋 AI 挑戰版", layout="wide")
 
+st.markdown("""
+<style>
+
+/* 整體背景(木紋色) */
+.stApp {
+    background-color: #D8C3A5;
+}
+
+/* 標題與文字 */
+h1, h2, h3, p, div, span {
+    color: #3E2723 !important;
+}
+
+/* 分數區 */
+[data-testid="stMetric"] {
+    background-color: rgba(255,255,255,0.35);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* 棋盤格子 */
+.stButton > button {
+    background-color: #F3E5C8 !important;
+    color: #3E2723 !important;
+    border: 1px solid #8D6E63 !important;
+    border-radius: 4px !important;
+    min-height: 42px !important;
+}
+
+/* 滑鼠移過 */
+.stButton > button:hover {
+    background-color: #E6D2B5 !important;
+    border-color: #5D4037 !important;
+}
+
+/* 功能按鈕 */
+button[kind="secondary"] {
+    background-color: #A1887F !important;
+    color: white !important;
+}
+
+/* 黑棋 */
+.black-piece {
+    color: black;
+    font-size: 24px;
+}
+
+/* 白棋 */
+.white-piece {
+    color: white;
+    font-size: 24px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 def load_score():
     if Path(SCORE_FILE).exists():
         try:
