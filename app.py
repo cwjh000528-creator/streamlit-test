@@ -8,9 +8,6 @@ BOARD_SIZE = 20
 SCORE_FILE = "score.json"
 
 st.set_page_config(page_title="五子棋 AI 挑戰版", layout="wide")
-st.markdown("""
-
-""", unsafe_allow_html=True)
 
 def load_score():
     if Path(SCORE_FILE).exists():
