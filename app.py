@@ -34,10 +34,10 @@ h1, h2, h3, p, div, span {
     background-color: #F3E5C8 !important;
     color: #3E2723 !important;
 
-    width: 42px !important;
-    height: 42px !important;
-    min-width: 42px !important;
-    min-height: 42px !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
 
     padding: 0px !important;
     margin: 0px !important;
@@ -45,7 +45,8 @@ h1, h2, h3, p, div, span {
     border: 1px solid #8D6E63 !important;
     border-radius: 4px !important;
 
-    font-size: 20px !important;
+    font-size: 30px !important;
+    font-weight: bold !important;
 }
 
 div[data-testid="column"] {
@@ -234,11 +235,11 @@ for r in range(BOARD_SIZE):
     for c in range(BOARD_SIZE):
         v=board[r,c]
         if v == 0:
-            txt = "＋"
+            txt = ""
         elif v == 1:
-            txt = "●"
+            txt = "⬤"
         else:
-            txt = "○"
+            txt = "◯"
 
         if cols[c].button(txt,key=f"{r}_{c}",disabled=(st.session_state.winner is not None)):
             if board[r,c]==0 and st.session_state.turn==1:
