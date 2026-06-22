@@ -110,6 +110,9 @@ if "turn" not in st.session_state:
 if "winner" not in st.session_state:
     st.session_state.winner = None
 
+if "last_ai_move" not in st.session_state:
+    st.session_state.last_ai_move = None
+
 if "score" not in st.session_state:
     st.session_state.score = load_score()
 
@@ -121,6 +124,7 @@ def reset_board():
 
     st.session_state.turn = 1
     st.session_state.winner = None
+    st.session_state.last_ai_move = None
 
 def check_win(board, r, c, p):
     dirs = [(1,0),(0,1),(1,1),(1,-1)]
@@ -236,8 +240,17 @@ for r in range(BOARD_SIZE):
         v=board[r,c]
         if v == 0:
             txt = ""
+        
         elif v == 1:
             txt = "⬤"
+        
+        elif (
+            st.session_state.last_ai_move
+            and
+            (r, c) == st.session_state.last_ai_move
+        ):
+            txt = "🔴"
+        
         else:
             txt = "◯"
 
@@ -256,6 +269,7 @@ for r in range(BOARD_SIZE):
                 if move is not None:
                     ar, ac = move
                     board[ar, ac] = 2
+                    st.session_state.last_ai_move = (ar, ac)
                 
                     if check_win(board, ar, ac, 2):
                         st.session_state.score["ai"] += 1
