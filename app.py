@@ -8,17 +8,8 @@ BOARD_SIZE = 20
 SCORE_FILE = "score.json"
 
 st.set_page_config(page_title="五子棋 AI 挑戰版", layout="wide")
-
 st.markdown("""
-<style>
-.stApp {
-    background-color: #F5E6C8;
-}
 
-h1, h2, h3, p, div {
-    color: black;
-}
-</style>
 """, unsafe_allow_html=True)
 
 def load_score():
