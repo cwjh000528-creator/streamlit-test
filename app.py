@@ -176,9 +176,6 @@ for r in range(BOARD_SIZE):
                     st.session_state.winner="🎉 玩家獲勝"
                     st.rerun()
 
-                with st.spinner("🤖 AI思考中..."):
-                    time.sleep(0.5)
-
                 move = ai_move()
                 
                 if move is not None:
